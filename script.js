@@ -240,16 +240,16 @@ btnDown.addEventListener("click", () => {
 function handleArrowKeyPress(event) {
   switch (event.key) {
     case "ArrowLeft":
-      CONTROL = 2;
+        btnLeft.click();
       break;
     case "ArrowUp":
-      CONTROL = 3;
+        btnUp.click();
       break;
     case "ArrowRight":
-      CONTROL = 1;
+        btnRight.click();
       break;
     case "ArrowDown":
-      CONTROL = 4;
+        btnDown.click();
       break;
     default:
       break;
@@ -257,19 +257,12 @@ function handleArrowKeyPress(event) {
 }
 
 document.addEventListener("keydown", handleArrowKeyPress);
-
 let x = 0;
-
 let now;
-
 let then = Date.now();
-
 let fps = 10;
-
 let interval = 1000 / fps;
-
 let delta;
-
 function animate() {
   now = Date.now();
 
