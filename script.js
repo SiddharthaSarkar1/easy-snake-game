@@ -95,17 +95,11 @@ class SnakeGameAI {
     if (this.#gameover()) {
       this.#placeFood();
       this.reset();
-
-      return {
-        gameOver: gameOver,
-
-        score: this.score,
-      };
+      gameOver = true;
     }
 
     return {
       gameOver: gameOver,
-
       score: this.score,
     };
   }
@@ -250,7 +244,7 @@ let then = Date.now();
 
 let fps = 10;
 
-let interval = 1000 / fps;
+let interval = 2000 / fps;
 
 let delta;
 
@@ -261,20 +255,18 @@ function animate() {
 
   if (delta > interval) {
     then = now - (delta % interval);
-
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
     let infoObj = snake.playStep(CONTROL);
-
     snake.draw(ctx);
-
     scoreDom.innerHTML = `Score: ${infoObj.score}`;
-
-    //   if (infoObj.gameOver) {
-
-    //    gameOverDom.style.visibility = 'display'
-
-    //  }
+    console.log(infoObj);
+    if (infoObj.gameOver) {
+      overlay.style.display = "block";
+      gameOverDom.style.visibility = "visible";
+    } else {
+      overlay.style.display = "none";
+      gameOverDom.style.visibility = "hidden";
+    }
   }
 
   requestAnimationFrame(animate);
