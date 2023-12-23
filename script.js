@@ -104,7 +104,30 @@ class SnakeGameAI {
     };
   }
 
+  //Function to draw the grid
+  #drawGrid(ctx, gridSize, canvasWidth, canvasHeight) {
+    ctx.strokeStyle = "rgba(255, 255, 255, 0.2)"; // Adjust the color and transparency
+    ctx.lineWidth = 1;
+
+    // Draw horizontal lines
+    for (let y = 0; y <= canvasHeight; y += gridSize) {
+      ctx.beginPath();
+      ctx.moveTo(0, y);
+      ctx.lineTo(canvasWidth, y);
+      ctx.stroke();
+    }
+
+    // Draw vertical lines
+    for (let x = 0; x <= canvasWidth; x += gridSize) {
+      ctx.beginPath();
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x, canvasHeight);
+      ctx.stroke();
+    }
+  }
+
   draw(ctx) {
+    this.#drawGrid(ctx, 10, canvas.width, canvas.height);
     for (let i = 0; i < this.snakeArr.length; i++) {
       if (i == 0) ctx.fillStyle = "red";
       else ctx.fillStyle = "#098567";
@@ -115,7 +138,6 @@ class SnakeGameAI {
         this.blockSize,
         this.blockSize
       );
-
       ctx.fill();
     }
 
@@ -244,7 +266,7 @@ let then = Date.now();
 
 let fps = 10;
 
-let interval = 2000 / fps;
+let interval = 1000 / fps;
 
 let delta;
 
@@ -259,7 +281,6 @@ function animate() {
     let infoObj = snake.playStep(CONTROL);
     snake.draw(ctx);
     scoreDom.innerHTML = `Score: ${infoObj.score}`;
-    console.log(infoObj);
     if (infoObj.gameOver) {
       overlay.style.display = "block";
       gameOverDom.style.visibility = "visible";
